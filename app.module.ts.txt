@@ -1,0 +1,80 @@
+==========Reactive Form Template / Model Driven Form ============
+
+app.module.ts
+=======================
+
+import { ReactiveFormsModule } from '@angular/core';
+
+imports :[
+	BrowserModule,
+	ReactiveFormModule
+],
+
+===========================
+app.component.ts
+===========================
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+
+export class AppComponent {
+	title = 'Saha Soft';
+	signupForm: FormGroup;
+	firstName: string='';
+	lastName: strong='';
+
+	constructor(private frmbuilder: FormBuilder) {
+			this.signupForm = frmbuilder.group({
+				fname:new FormControl(),
+				lname:new FormControl()
+			});
+	}
+
+	postData(signupForm: any) {
+		this.firstName = signupForm.controls.fname.value;
+	}
+
+}
+
+=========================
+app.component.html
+=========================
+<form [formGroup]='signupForm' (ngSubmit)="postData(signupForm)">
+<input type="text" formControlName='fname' />
+<input type="text" formControlName='lname' />
+<input type="submit" value="Post Data" />
+</form>
+
+
+===========Template Driven Forms===========
+app.module.ts
+==============
+import { FormsModule } from '@angular/core';
+
+imports:[
+	BrowserModule,
+	FormsModule
+],
+
+=================================
+app.component.html
+=================================
+<form #regForm='ngForm' (ngSubmit)="register(regForm)">
+<input type="text" name="firstname" ngModel>
+<input type="text" name="lastname" ngModel>
+<input type="text" name="email" email ngModel #email="ngModel">
+<span *ngIf="email.touched && !email.valid">Please enter valid email.</span>
+<button type="submit" id="register" [disabled]="!regForm.valid">
+</form>
+=================================
+app.component.ts
+=================================
+register(regForm: any) {
+	var firstName = regForm.controls.firstname.value;
+}
+
+=================================
+app.component.css
+=================================
+input.ng-invalid.ng-touched {
+	border.color:red
+}
+
