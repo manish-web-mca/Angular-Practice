@@ -1,0 +1,36 @@
+Method = 1
+=================
+app.component.ts
+======================
+export class AppComponent {
+
+	data : string = 'Welcome'
+	constructor() {}
+
+}
+
+app.component.html
+=======================
+<input type="text" [value] = "data" [input] = "data=$event.target.value" />
+Your Data = {{ data }}
+
+Method = 2
+================
+app.module.ts
+==================
+import { NgModule } from '@angular/core'
+import { FormModule } from '@angular/forms'
+
+app.component.ts
+======================
+export class AppComponent {
+
+	data : string = 'Welcome'
+	constructor() {}
+
+}
+
+app.component.html
+=======================
+<input type="text" [(ngModel)] = "data"/>
+Your Data = {{ data }}

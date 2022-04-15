@@ -1,0 +1,23 @@
+FormArray
+==========
+It is a class that tracks the value and validity state of array of FormControl, FormGroup and FormArray. A FormArray aggregates the values of each child FormControl into an array.It calculates its status by reducing the statuses of its children.
+
+* npm package @angular/forms
+* Module import { FormArray } from '@angular/forms
+'
+
+import { FormArray } from '@angular/forms'
+
+ngOnInit() {
+	const arr = new FormArray({
+		new  FormControl('Ajeet');
+		new  FormControl('Ram');
+
+	})
+
+arr.setValue(['Shyam', 'Sohan']);
+	
+console.log(arr.value);
+console.log(arr.status);
+
+}
