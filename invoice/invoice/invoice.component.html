@@ -1,0 +1,56 @@
+<div class="container">
+<form class="row g-3" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="col-12">       
+        <button type="button" class="btn btn-primary" (click)="addInvoice()">Add More</button>
+    </div>
+    <div class="row" formArrayName="invoices">
+        <div class="row"  *ngFor="let invoice of invoices().controls; let i=index" [formGroupName]="i">
+            <div class="col-md-2">
+                <label for="inputEmail4" class="form-label">Product Name</label>
+                <input type="text" class="form-control" id="inputEmail4" formControlName="productName">
+            </div>
+            <div class="col-md-2">
+                <label for="inputPassword4" class="form-label">Qantity</label>
+                <input type="text" class="form-control" id="inputPassword4" formControlName="quantity" (keyup)="calTotal(invoice, i)">
+            </div>
+            <div class="col-2">
+                <label for="inputAddress" class="form-label">Rate</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="Rate" formControlName="rate" (keyup)="calTotal(invoice, i)">
+            </div>
+            <div class="col-md-2">
+                <label for="inputState" class="form-label">Sales Tax</label>
+                <select id="inputState" class="form-select" formControlName="saleTax" (change)="calTotal(invoice, i)">
+                    <option selected>Select.</option>
+                    <option value="15">15%</option>
+                    <option value="25">25%</option>
+                    <option value="10">10%</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <label for="inputAddress" class="form-label">Total</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="Total" formControlName="total">               
+            </div>
+            <div class="col-md-2" *ngIf="i > 0">       
+                <button (click)="removeInvoice(i)" class="btn btn-danger mt-4">Remove</button> 
+            </div> 
+        </div>    
+    </div> 
+
+    <div>&nbsp;</div>
+        
+    <div class="row">
+        <div class="col-2">
+          <input type="text" class="form-control" placeholder="Subtotal" formControlName="subtotal">
+        </div>
+        <div class="col-2">
+          <input type="text" class="form-control" placeholder="Total Tax"formControlName="totalTax">
+        </div>
+        <div class="col-2">
+            <input type="text" class="form-control" placeholder="Grand Total" formControlName="grandTotal">
+        </div>
+      </div>  
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </div>
+  </form>
+</div>  
