@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
       console.log('manish=>', data);
     }).catch((error) => {
       console.log('Error...', error);
-    }).finally(() =>{
+    }).finally(() => {
       console.log('The promise is completed...');
     });
   }
