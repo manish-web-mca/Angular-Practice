@@ -1,0 +1,56 @@
+app.component.html (Parent to child communication)
+=====================
+<h1>Parent Component</h1>
+Parent Component : <input type="text" #Pcomponent (keyup)="0"/>
+<app-child [pData]="Pcomponent.value"></app-child>
+
+
+child.coponent.ts
+===================
+@Component({
+ selector: 'app-child',
+ templateUrl: './child.component.html',
+ inputs: ['pData'] 	
+})
+
+pData: any
+
+child.component.html
+======================
+<h1>Child Component</h1>
+Value from parent component : {{pData}}
+
+================================================
+app.component.html (Child to Parent communication)
+=====================
+<h1>Parent Component</h1>
+Value from child : {{cdata}}
+<app-child (childevent)="getData($event)"></app-child>
+
+app.componet.ts
+========================
+cdata: any;
+constructor() {}
+getData(val:any) {
+this.cdata = val;
+}
+
+child.component.html
+======================
+<h1>Child Component</h1>
+Child Component : <input type="text" #Ccomponent (keyup)="onchange(Ccomponent.value)"/>
+
+child.coponent.ts
+===================
+import { component, EventEmitter} from '@angular/core'
+@Component({
+ selector: 'app-child',
+ templateUrl: './child.component.html',
+ outputs: ['childevent'] 	
+})
+childevent = new EventEmitter();
+constructor() {}
+onchange(val:any) {
+ this.childevent.emit(val);
+
+}
