@@ -1,0 +1,60 @@
+1) createOrder()
+2) proceedToPayment()
+3) showOrderSummary()
+4) updateWallet()
+
+const cart = ['shirt', 'pants', 'kurta'];
+
+api.createOrder(cart, (orddata) => {
+      let orderId = orddata.id;
+      api.proceedToPayment(orderId, (pdata) => {
+             let paymentId = pdata.id;
+             api.showOrderSummary(paymentId, (ordsmdata) => {
+                   let ordersumId= ordsmdata.id;
+                   api.updateWallet(ordersumId, ()=> {
+                   
+
+                   })
+             })
+
+      })
+})
+
+the above code will raise the issue of callback hell and the above code structure is known as "pyramid of doom"
+the above code is unreadable and unmaintainable.
+
+
+Inversion of control
+====================
+Giving our function control to other function and we blindly trust on that function.
+api.createOrder(cart, (orddata) => {
+       api.proceedToPayment(orderId, (pdata) => {
+	
+       })   	
+})
+
+Promises
+====================
+
+//producer
+
+const orderCreatePromise = new Promise((resolve, reject) => {
+   settimeOut(() => {
+      //call api.createOrder
+      let orderId = api.createOrder();
+      if(orderId != undefined) {
+      	resolve(orderId);
+      } else {
+        let err = new Error('order id not found');
+        reject(err);
+      } 
+   }, 1000)
+})
+
+//consumer
+orderCreatePromise.then((orderId) => {
+  // call api.proceedToPayment	
+   api.proceedToPayment();
+}).catch((err) => {
+   console.log(err);
+})
