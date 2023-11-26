@@ -1,0 +1,49 @@
+1) create a class at the root folder using below command
+ng g class employee
+
+employee.ts
+====================
+console.log
+
+export class Employee {
+  constructor() {
+	console.log('employee loaded...');
+  }
+
+  show() {
+    console.log('show called...');
+  }  
+
+}
+
+
+app.module.ts (Module Level)
+=============================
+import { Employee} from './employee';
+
+@NgModule({
+
+providers: ['Employee']
+
+})
+
+
+================================================
+person.component.ts  (component level)
+=====================
+import { Employee} from './employee';
+
+@Component({
+ selector: 'app-person',
+ templateUrl: './person.component.html',
+ viewProviders: ['Employee']
+})
+
+export class PersonComponent {
+ 
+ constructor(private _obj_emp: Employee) {
+	this._obj_emp.show()
+ }
+	
+
+}
