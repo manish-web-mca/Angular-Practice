@@ -1,0 +1,116 @@
+ng generate module person --routing --module app.module
+ng generate module company --routing --module app.module
+
+person-routing.module.ts
+===========================
+
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AddPersonComponent } from './addperson/addperson.component';
+import { ListPersonComponent } from './listperson/lisperson.component';
+const routes: Routes = [{
+     path: 'add-person',
+     component: AddPersonComponent
+}];
+@NgModule({
+imports: [RouterModule.forChild(routes)],
+exports: [RouterModule]
+})
+export class PersonRoutingModule {}
+
+person.module.ts
+===========================
+
+import { BrowserModule } from ‘@angular/platform-browser’;
+import { NgModule} from ‘@angular/core’;
+import { PersonRoutingModule } from './person-routing.module';
+import { AddPersonComponent } from './addperson/addperson.component';
+@NgModule({
+declarations: [AddPersonComponent],
+imports: [AuthRoutingModule],
+})
+export class PersonModule { 
+  constructor() {
+    console.log('PersonModule loaded.');
+  }
+}
+
+
+
+company-routing.module.ts
+===========================
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { ListCompanyComponent } from './listcompany/listcompany.component';
+const routes: Routes = [{
+     path: 'list-company',
+     component: ListCompanyComponent
+}];
+@NgModule({
+imports: [RouterModule.forChild(routes)],
+exports: [RouterModule]
+})
+export class CompanyRoutingModule { }
+
+
+company.module.ts file
+================================
+import { BrowserModule } from ‘@angular/platform-browser’;
+import { NgModule} from ‘@angular/core’;
+import { CompanyRoutingModule } from './company-routing.module';
+import { ListCompanyComponent } from './listcompany/listcompany.component';
+@NgModule({
+declarations: [ListCompanyComponent],
+imports: [CompanyRoutingModule],
+})
+export class CompanyModule { 
+  constructor() {
+    console.log('CompanyModule loaded.');
+  }
+}
+
+
+app.module.ts
+=========================
+import { NgModule }   from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent }  from './app.component';
+import { PersonModule }  from './person/person.module';
+import { CompanyModule }  from './company/company.module';
+import { AppRoutingModule }  from './app-routing.module';
+
+@NgModule({
+  imports: [     
+    BrowserModule,
+    PersonModule,
+    CompanyModule,
+    AppRoutingModule
+  ],
+  declarations: [
+    AppComponent,
+  ],
+  providers: [ ],
+  bootstrap: [ AppComponent ]
+})
+export class AppModule { 
+  constructor() {
+     console.log('AppModule loaded.');
+  }
+}
+
+
+app-routing.ts
+========================
+
+const routes: Router = [
+  {
+    path: '',
+    redirectTo: '/company',
+    pathmatch: 'full'
+  },
+  {
+     'path' : '/person',
+     'component': personListComponent
+  }
+
+]
