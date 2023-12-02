@@ -1,0 +1,93 @@
+app.component.ts
+
+studebtData:any = [];
+constructor() {
+  this.studebtData = [
+    {
+        studentId: 1,
+        studentName: 'Manish',
+        age: 35,
+        gender: 'Male',
+        course: 'MCA'
+    },
+    {
+        studentId: 2,
+        studentName: 'Mahesh',
+        age: 30,
+        gender: 'Male',
+        course: 'MCA'
+    },
+    {
+        studentId: 3,
+        studentName: 'Mohan',
+        age: 40,
+        gender: 'Male',
+        course: 'MCA'
+    }
+
+
+  ];		
+
+
+}
+
+getMoreStudent() {
+   this.studebtData = [
+    {
+        studentId: 1,
+        studentName: 'Manish',
+        age: 35,
+        gender: 'Male',
+        course: 'MCA'
+    },
+    {
+        studentId: 2,
+        studentName: 'Mahesh',
+        age: 30,
+        gender: 'Male',
+        course: 'MCA'
+    },
+    {
+        studentId: 3,
+        studentName: 'Mohan',
+        age: 40,
+        gender: 'Male',
+        course: 'MCA'
+    },
+    {
+        studentId: 4,
+        studentName: 'Shoni',
+        age: 40,
+        gender: 'Female',
+        course: 'BCA'
+    } 
+
+  ];
+
+
+}
+
+trackByStudentId(index: number, student: any) : string {
+
+  return student.studentId;
+}
+
+
+
+
+================================
+app.component.html
+
+<table>
+  <tr *ngFor="let s of studebtData;let i=index;trackBy:trackByStudentId">
+	<td>{{s.studentId}}</td>
+        <td>{{s.studentName}}</td>
+        <td>{{s.age}}</td>
+        <td>{{s.gender}}</td>
+        <td>{{s.course}}</td> 
+  </tr>
+</table>
+
+<button (click)="getMoreStudent()">Add More</button>
+
+
