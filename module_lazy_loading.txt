@@ -123,3 +123,172 @@ const routes: Router = [
   }
 
 ]
+
+
+//For PreLoading we need to change only app.routing.ts
+
+import {PreLoadAllModules} from '@angular/router' ;
+
+const routes: Router = [
+ {
+    path: 'company',
+    loadChildren: 'app/company/company.module#CompanyModule'
+  },
+  {
+    path: 'person',
+    loadChildren: 'app/person/person.module#PersonModule'
+  },
+  }, 
+ {
+    path: '',
+    redirectTo: '',
+    pathmatch: 'full'
+  },
+  {
+     'path' : '/person',
+     'component': personListComponent
+  }
+
+]
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes,{
+     preLoadingStrategy:PreLoadAllModules
+   })
+
+
+  ]
+
+
+})
+
+
+//For Custom PreLoading we need to change only app.routing.ts and one service file
+import { CustomPreloadingStrategy } from './custom.preloading.strategy';
+ 
+const routes: Router = [
+ {
+    path: 'company',
+    loadChildren: 'app/company/company.module#CompanyModule',
+    data: { prelaod: true }
+  },
+  {
+    path: 'person',
+    loadChildren: 'app/person/person.module#PersonModule'
+  },
+  }, 
+ {
+    path: '',
+    redirectTo: '',
+    pathmatch: 'full'
+  },
+  {
+     'path' : '/person',
+     'component': personListComponent
+  }
+
+]
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes,{
+     preLoadingStrategy:CustomPreloadingStrategy
+   })
+
+
+  ],
+  providers:[CustomPreloadingStrategy]
+
+
+})
+
+
+custom.preloading.strategy.ts
+==================================
+import { Injectable } from '@angular/core'
+import { PreloadingStrategy, Route } from '@angular/router'
+
+import { Observable } from 'rxjs/observable';
+import { of } from 'rsjx/operator'
+
+@Injectable{}
+
+exort class CustomPreloadingStrategy implements PreloadingStrategy {
+  preload(route:Route, load: () => Observable<any>:Observable<any>) {
+   if(route.data && route.data['preload']) {
+     console.log('preload path is :', route.path);
+     return load();
+   } else {
+      return Observable.of(null);
+   }
+}
+
+} 
+
+===
+//For Custom PreLoading with delay we need to change only app.routing.ts and one service file
+import { CustomPreloadingStrategy } from './custom.preloading.strategy';
+ 
+const routes: Router = [
+ {
+    path: 'company',
+    loadChildren: 'app/company/company.module#CompanyModule',
+    data: { prelaod: true, delay: false }
+  },
+  {
+    path: 'person',
+    loadChildren: 'app/person/person.module#PersonModule'
+data: { prelaod: true, delay: true }
+  },
+  }, 
+ {
+    path: '',
+    redirectTo: '',
+    pathmatch: 'full'
+  },
+  {
+     'path' : '/person',
+     'component': personListComponent
+  }
+
+]
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes,{
+     preLoadingStrategy:CustomPreloadingStrategy
+   })
+
+
+  ],
+  providers:[CustomPreloadingStrategy]
+
+
+})
+
+
+custom.preloading.strategy.ts
+==================================
+import { Injectable } from '@angular/core'
+import { PreloadingStrategy, Route } from '@angular/router'
+
+import { Observable } from 'rxjs/observable';
+import { of } from 'rsjx/operator'
+
+@Injectable{}
+
+exort class CustomPreloadingStrategy implements PreloadingStrategy {
+  preload(route:Route, load: () => Observable<any>:Observable<any>) {
+   if(route.data && route.data['preload']) {
+     console.log('preload path is :', route.path);
+      if(route.data['delay']) {
+        return timer(5000).mergeMap(() => load())
+      }
+     return load();
+   } else {
+      return Observable.of(null);
+   }
+}
+
+}
