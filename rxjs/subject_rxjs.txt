@@ -1,0 +1,184 @@
+============app.componet.js=================
+
+import { Component } from '@angular/core';
+import { DesignUtilityService } from './appServices/design-utility.service';
+
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
+})
+export class AppComponent  {
+ 
+ userName:string = 'Uxtrendz';
+
+  constructor(private _designServices:DesignUtilityService) {
+    this._designServices.userName.subscribe(uname =>{
+      this.userName = uname
+    })
+   }
+  
+ 
+}
+
+===========app.component.html=================
+<div class="box">
+  <h1>User Name is <span class="text-green">{{userName}}</span></h1>
+</div>
+ <app-child></app-child>
+ <app-child2></app-child2>
+ <app-child3></app-child3>
+ <app-child4></app-child4>
+
+
+===========design-utility.service.ts===========
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable()
+export class DesignUtilityService {
+
+  constructor() { }
+
+  userName = new BehaviorSubject('Uxtrendz')
+
+}
+
+=============child.component.ts=============
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { DesignUtilityService } from '../appServices/design-utility.service';
+
+@Component({
+  selector: 'app-child',
+  templateUrl: './child.component.html',
+  styleUrls: [ './child.component.css' ]
+})
+export class ChildComponent  {
+
+  userName;
+  updateUserName(uname){
+    this._designServices.userName.next(uname.value)
+  }
+
+  constructor(private _designServices:DesignUtilityService) {
+    this._designServices.userName.subscribe(uname =>{
+      this.userName = uname
+    })
+   }
+   
+}
+
+===============child.componet.html===========
+<div class="box">
+  User Name: <strong>{{userName}}</strong>
+  <br><br>
+  <input type="text" placeholder="Update Name" #uname>
+
+  <button (click)="updateUserName(uname)">Update</button>
+
+   <br>
+ </div>
+
+==============child2.component.ts==============
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { DesignUtilityService } from '../appServices/design-utility.service';
+
+@Component({
+  selector: 'app-child2',
+  templateUrl: './child2.component.html',
+  styleUrls: [ './child2.component.css' ]
+})
+export class Child2Component  {
+
+  userName;
+  updateUserName(uname){
+    this._designServices.userName.next(uname.value)
+  }
+
+  constructor(private _designServices:DesignUtilityService) {
+    this._designServices.userName.subscribe(uname =>{
+      this.userName = uname
+    })
+   }
+   
+}
+================child2.component.html===============
+<div class="box">
+  User Name: <strong>{{userName}}</strong>
+  <br><br>
+  <input type="text" placeholder="Update Name" #uname>
+
+  <button (click)="updateUserName(uname)">Update</button>
+
+   <br>
+ </div>
+
+==============child3.componet.ts===================
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { DesignUtilityService } from '../appServices/design-utility.service';
+
+@Component({
+  selector: 'app-child3',
+  templateUrl: './child3.component.html',
+  styleUrls: ['./child3.component.css']
+})
+export class Child3Component implements OnInit {
+
+  userName;
+  updateUserName(uname){
+    this._designServices.userName.next(uname.value)
+  }
+
+  constructor(private _designServices:DesignUtilityService) {
+    this._designServices.userName.subscribe(uname =>{
+      this.userName = uname
+    })
+   }
+   
+}
+
+====================child3.component.html============
+<div class="box">
+  User Name: <strong>{{userName}}</strong>
+  <br><br>
+  <input type="text" placeholder="Update Name" #uname>
+
+  <button (click)="updateUserName(uname)">Update</button>
+
+   <br>
+ </div>
+
+=================child4.component.ts===============
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { DesignUtilityService } from '../appServices/design-utility.service';
+
+@Component({
+  selector: 'app-child4',
+  templateUrl: './child4.component.html',
+  styleUrls: ['./child4.component.css']
+})
+export class Child4Component implements OnInit {
+
+  userName;
+  updateUserName(uname){
+    this._designServices.userName.next(uname.value)
+  }
+
+  constructor(private _designServices:DesignUtilityService) {
+    this._designServices.userName.subscribe(uname =>{
+      this.userName = uname
+    })
+   }
+   
+}
+
+=================child4.componet.html=================
+<div class="box">
+  User Name: <strong>{{userName}}</strong>
+  <br><br>
+  <input type="text" placeholder="Update Name" #uname>
+
+  <button (click)="updateUserName(uname)">Update</button>
+
+   <br>
+ </div>
