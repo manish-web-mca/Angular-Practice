@@ -1,0 +1,39 @@
+routing.module.ts
+==============================
+@NgModule({
+	imports: [
+		RouterModule.forRoot(routes, {enableTracing: true})
+	],
+	exports: [RouterModule]
+
+})
+
+app.component.html
+====================
+<router-outlet></router-outlet>
+
+<div class="overlay" *ngIf="showLoader">
+	<div class="loader"></div>
+</div>
+
+app.componet.ts
+==================
+import { Component, inject } from '@angular/core';
+import { Router, Event, NavigationStart, NavigationEnd, NavigationCancel } from '@angular/router'
+showLoader: boolean = false;
+router: Router = inject(Router);
+
+ngonInit() {
+	this.router.events.subscribe((routerEvent: Event) => {
+		if(routerEvent instanceof NavigationStart) {
+			this.showLoader = true;
+  		}
+
+		if(routerEvent instanceof NavigationEnd || routerEvent instanceof NavigationCancel) {
+			this.showLoader = false;
+  		}
+
+	})
+
+
+}
