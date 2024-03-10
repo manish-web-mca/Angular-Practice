@@ -1,0 +1,11 @@
+let _popup = this.dialog.open(PopupComponent{
+ width: '60%',
+ enterAnimationDuration: '1000ms' 
+ exitAnimationDuration: '1000ms' 
+ data: { }
+})
+
+https://stackoverflow.com/questions/58198544/angular-dialogref-unsubscribe-do-i-need-to-unsubscribe-from-afterclosed
+
+
+https://rxjs.dev/api/operators/finalize
