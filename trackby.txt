@@ -91,3 +91,6 @@ app.component.html
 <button (click)="getMoreStudent()">Add More</button>
 
 
+// service worker in angular
+https://medium.com/@zeeshankhan8838/mastering-web-service-workers-in-angular-a-comprehensive-guide-8a6ebad4ac29
+https://medium.com/@neerajkp/getting-started-with-service-workers-in-an-angular-application-98853068624b
