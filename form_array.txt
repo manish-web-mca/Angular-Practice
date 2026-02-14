@@ -18,6 +18,7 @@ ngOnInit() {
 arr.setValue(['Shyam', 'Sohan']);
 	
 console.log(arr.value);
-console.log(arr.status);
+console.log(arr.status);;
+
 
 }
